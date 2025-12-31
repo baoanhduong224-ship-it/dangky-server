@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đăng ký Server SMP Hardcore</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #e5e7eb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .box {
+      background: #020617;
+      padding: 24px;
+      border-radius: 12px;
+      width: 360px;
+      box-shadow: 0 20px 40px rgba(0,0,0,.5);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    label {
+      display: block;
+      margin-top: 12px;
+      font-size: 14px;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+    }
+    button {
+      width: 100%;
+      margin-top: 18px;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      background: #22c55e;
+      color: #022c22;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #16a34a;
+    }
+    .note {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Đăng ký Server</h1>
+
+    <form id="applyForm">
+      <label>Tên Minecraft</label>
+      <input id="mcname" type="text" placeholder="Ví dụ: BaoAnh" required />
+
+      <label>Discord</label>
+      <input id="discord" type="text" placeholder="user#0000" required />
+
+      <label>Tuổi</label>
+      <input id="age" type="number" min="10" max="99" required />
+
+      <label>Bạn chơi Hardcore bao giờ chưa?</label>
+      <select id="exp" required>
+        <option>Có</option>
+        <option>Chưa</option>
+      </select>
+
+      <label>Lý do muốn vào server</label>
+      <textarea id="reason" rows="3" placeholder="Viết ngắn gọn..."></textarea>
+
+      <button type="submit">Gửi đăng ký</button>
+    </form>
+
+    <script>
+      const webhookURL = "https://discord.com/api/webhooks/1352602230041083955/BiCiOyKSqsPvR8wGe7N0ZTPrdzxhU8S3TIev9fO3PwnRjlVYCo9lHEyNbY0VNgrd_7m4";
+
+      document.getElementById("applyForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const data = {
+          username: "SMP Hardcore - Đăng ký",
+          embeds: [{
+            title: "📩 Đơn đăng ký mới",
+            color: 65280,
+            fields: [
+              { name: "🎮 Minecraft", value: document.getElementById("mcname").value, inline: true },
+              { name: "💬 Discord", value: document.getElementById("discord").value, inline: true },
+              { name: "📅 Tuổi", value: document.getElementById("age").value, inline: true },
+              { name: "🔥 Kinh nghiệm Hardcore", value: document.getElementById("exp").value, inline: true },
+              { name: "📝 Lý do", value: document.getElementById("reason").value || "Không ghi" }
+            ],
+            footer: { text: "SMP Hardcore Server" }
+          }]
+        };
+
+        fetch(webhookURL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        }).then(() => {
+          alert("✅ Gửi đăng ký thành công!");
+          document.getElementById("applyForm").reset();
+        }).catch(() => {
+          alert("❌ Lỗi gửi đơn, thử lại sau");
+        });
+      });
+    </script>
+
+    <div class="note">Server SMP Hardcore • Không RP nặng • Không cheat</div>
+  </div>
+</body>
+</html>
